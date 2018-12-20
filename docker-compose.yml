@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+
+  home-assistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:0.82.1
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 9107:8123
+    restart: always
+    #network_mode: host
