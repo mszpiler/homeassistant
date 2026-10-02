@@ -1,0 +1,57 @@
+# Wbudowana integracja REST obsługuje API Shelly pierwszej generacji.
+# Nazwy i adresy zachowują dotychczasową konfigurację; nie jest wymagany własny dodatek.
+- platform: rest
+  name: Lampa nad stołem
+  unique_id: shelly_one_relay_0
+  resource: http://192.168.1.130/relay/0
+  method: post
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  body_on: turn=on
+  body_off: turn=off
+  is_on_template: "{{ value_json.ison }}"
+  availability: "{{ value_json is defined and value_json is mapping and value_json.ison is boolean }}"
+  scan_interval: 5
+  timeout: 5
+
+- platform: rest
+  name: Schody
+  unique_id: shelly_two_relay_0
+  resource: http://192.168.1.131/relay/0
+  method: post
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  body_on: turn=on
+  body_off: turn=off
+  is_on_template: "{{ value_json.ison }}"
+  availability: "{{ value_json is defined and value_json is mapping and value_json.ison is boolean }}"
+  scan_interval: 5
+  timeout: 5
+
+- platform: rest
+  name: Korytarz parter
+  unique_id: shelly_three_relay_0
+  resource: http://192.168.1.132/relay/0
+  method: post
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  body_on: turn=on
+  body_off: turn=off
+  is_on_template: "{{ value_json.ison }}"
+  availability: "{{ value_json is defined and value_json is mapping and value_json.ison is boolean }}"
+  scan_interval: 5
+  timeout: 5
+
+- platform: rest
+  name: Kuchnia wyspa
+  unique_id: shelly_four_relay_0
+  resource: http://192.168.1.133/relay/0
+  method: post
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  body_on: turn=on
+  body_off: turn=off
+  is_on_template: "{{ value_json.ison }}"
+  availability: "{{ value_json is defined and value_json is mapping and value_json.ison is boolean }}"
+  scan_interval: 5
+  timeout: 5

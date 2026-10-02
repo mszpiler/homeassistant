@@ -1,14 +1,25 @@
-version: '3.3'
-
+name: homeassistant
 services:
-
-  home-assistant:
-    container_name: home-assistant
-    image: homeassistant/home-assistant:0.82.1
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:2026.9.4
+    network_mode: host
+    environment:
+      TZ: Europe/Warsaw
     volumes:
-      - ./config:/config
+      # SELinux wymaga etykiety dostępu do katalogu konfiguracji na Hydropolis.
+      - ./config:/config:Z
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 9107:8123
-    restart: always
-    #network_mode: host
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    stop_grace_period: 60s
+    healthcheck:
+      test:
+        - CMD
+        - python3
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9107/', timeout=10)"
+      interval: 30s
+      timeout: 15s
+      start_period: 120s
+      retries: 3
